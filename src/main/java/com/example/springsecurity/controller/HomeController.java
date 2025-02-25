@@ -15,5 +15,4 @@ public class HomeController {
     public String contact() {
         return "contact";
     }
-
 }

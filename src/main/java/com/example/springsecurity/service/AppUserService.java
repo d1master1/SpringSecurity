@@ -1,15 +1,21 @@
 package com.example.springsecurity.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springsecurity.model.AppUser;
+import com.example.springsecurity.repo.AppUserRepo;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AppUserService implements UserDetailsService {
 
-    @Autowired
-    private AppUserRepo repo;
+    private final AppUserRepo repo;
+
+    public AppUserService(AppUserRepo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -24,7 +30,6 @@ public class AppUserService implements UserDetailsService {
                     .build();
 
         }
-
+        return null;
     }
-
 }

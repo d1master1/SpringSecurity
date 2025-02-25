@@ -17,6 +17,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/contact").permitAll()
                         .requestMatchers("/store/**").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/login").permitAll()

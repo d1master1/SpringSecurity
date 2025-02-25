@@ -1,10 +1,13 @@
 package com.example.springsecurity.controller;
 
-import ch.qos.logback.core.model.Model;
+import com.example.springsecurity.model.AppUser;
+import com.example.springsecurity.dto.RegisterDto;
+import com.example.springsecurity.repo.AppUserRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +32,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public String register(
-            org.springframework.ui.Model model,
+            Model model,
             @Valid @ModelAttribute RegisterDto registerDto,
             BindingResult result) {
 
@@ -47,11 +50,9 @@ public class AccountController {
         }
 
         try {
-
             var bCryptEncoder = new BCryptPasswordEncoder();
 
             AppUser newUser = new AppUser();
-
             newUser.setUsername(registerDto.getUsername());
             newUser.setEmail(registerDto.getEmail());
             newUser.setRole("client");
@@ -64,7 +65,6 @@ public class AccountController {
             model.addAttribute("success", true);
         }
         catch (Exception ex) {
-
             result.addError(new FieldError("registerDto", "userName", ex.getMessage()));
         }
         return "register";
